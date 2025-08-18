@@ -1,17 +1,12 @@
 from typing import Annotated
+from fastapi import Depends, HTTPException, status, Path, APIRouter
 from sqlalchemy.orm import Session
-from fastapi import Depends, FastAPI, HTTPException, status, Path, ApiRouter
-import models
 from models import Todos
-from database import SessionLocal, engine
+from database import SessionLocal
 from pydantic import BaseModel, Field
-from routers import auth
 
-router = ApiRouter()
 
-router.include_router(auth.router)
-
-models.Base.metadata.create_all(bind=engine)
+router = APIRouter()
 
 def get_db():
     db = SessionLocal()
