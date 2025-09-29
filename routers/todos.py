@@ -48,10 +48,10 @@ async def update_todo(todo_request: TodoRequest, db: db_dependency, todo_id: int
     if todo_model is None:
         raise HTTPException(status_code=404, detail="Todo not found")
     
-    todo_model.title = todo_request.title
-    todo_model.description = todo_request.description
-    todo_model.priority = todo_request.priority
-    todo_model.complete = todo_request.complete
+    setattr(todo_model, "title", todo_request.title)
+    setattr(todo_model, "description", todo_request.description)
+    setattr(todo_model, "priority", todo_request.priority)
+    setattr(todo_model, "complete", todo_request.complete)
     
     db.add(todo_model)
     db.commit()
